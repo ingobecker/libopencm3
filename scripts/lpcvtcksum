@@ -24,6 +24,13 @@
 
 import sys, struct
 
+# disable padding by passing -no-padding as
+# second argument
+padding = True
+if sys.argv[1] == '-no-padding':
+  sys.argv.pop(1)
+  padding = False
+
 binfile = open(sys.argv[1], 'r+b')
 rawvectors = binfile.read(32)
 vectors = list(struct.unpack('<IIIIIIII', rawvectors))
@@ -41,8 +48,11 @@ remainder = list(struct.unpack('B' * len(rawremainder), rawremainder))
 numbytes = len(remainder) + 32
 
 # pad to multiple of 4096 bytes to make GoodFET happy
-if (numbytes % 4096):
-	remainder.extend([0] * (4096 - numbytes % 4096))
+# disable padding by passing "-no-padding" as the last argument
+if padding:
+  if (numbytes % 4096):
+    print "padding for GoodFET compatibility"
+    remainder.extend([0] * (4096 - numbytes % 4096))
 
 # rewrite file with checksum and padding
 data = vectors
