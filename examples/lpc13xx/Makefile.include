@@ -55,13 +55,18 @@ all: images
 
 images: $(BINARY).images
 flash: $(BINARY).flash
+bootload: $(BINARY).boot
 
-%.images: %.bin %.hex %.srec %.list
+%.images: %.bin %.hex %.srec %.list %.crc.bin
 	@#echo "*** $* images generated ***"
 
 %.bin: %.elf
 	@#printf "  OBJCOPY $(*).bin\n"
 	$(Q)$(OBJCOPY) -Obinary $(*).elf $(*).bin
+
+%.crc.bin: %.bin
+	$(Q)cp $(*).bin $(*).crc.bin
+	$(Q)python $(TOOLCHAIN_DIR)/scripts/lpcvtcksum -no-padding $(*).crc.bin
 
 %.hex: %.elf
 	@#printf "  OBJCOPY $(*).hex\n"
@@ -91,6 +96,9 @@ clean:
 	$(Q)rm -f *.hex
 	$(Q)rm -f *.srec
 	$(Q)rm -f *.list
+
+%.boot: %.crc.bin
+	$(Q)sudo $(TOOLCHAIN_DIR)/scripts/lpc13xx_usbboot $<
 
 # FIXME: Replace STM32 stuff with proper LPC13XX OpenOCD support later.
 ifeq ($(OOCD_SERIAL),)
