@@ -97,4 +97,7 @@
 #define GPIO2_IC			GPIO_IC(GPIO2)
 #define GPIO3_IC			GPIO_IC(GPIO3)
 
+
+void gpio_set(u32 gpioport, u16 gpios);
+void gpio_masked_set(u32 gpioport, u16 mask, u16 values);
 #endif

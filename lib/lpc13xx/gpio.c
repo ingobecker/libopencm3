@@ -18,8 +18,22 @@
  */
 
 #include <libopencm3/lpc13xx/gpio.h>
+#include <libopencm3/cm3/common.h>
 
 void gpio_set(u32 gpioport, u16 gpios)
 {
 	GPIO_DATA(gpioport) = gpios;
+}
+
+/**
+ * Use the masked i/o access capabilities to set or clear
+ * bits with just one write access.
+ *
+ * @param bits to mask for modification
+ * @param bit values to assign
+ */
+
+void gpio_masked_set(u32 gpioport, u16 mask, u16 values)
+{
+  MMIO32((gpioport + (mask << 2))) = values;
 }
