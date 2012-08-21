@@ -22,8 +22,9 @@
 
 #define ALL_PINS      4095
 #define DELAY         35E+4
-#define M0D_A_2   8
-#define M0D_A_3   9
+#define M0D_A_2       8
+#define M0D_A_3       9
+#define M0D_A_2_3     ((1 << M0D_A_2) | (1 << M0D_A_3))
 
 void delay(int n)
 {
@@ -34,15 +35,13 @@ void delay(int n)
 int main(void)
 {
 
-  int *p = (int *)0x50008000; // port 0
   // set pin0_7 as output
-  *p |= ALL_PINS;//(0x1 << LED_BIT);
-  int *led = (int *)(0x50000000 + ((((1 << M0D_A_2)/* | (1 << M0D_A_3)*/) << 2)));//| (1 << M0D_A_3))<< 2)); // port 0 bit 7
+  GPIO0_DIR = ALL_PINS;
 
   while (1) {
-    *led = ~0;
+    gpio_masked_set(GPIO0, (1 << M0D_A_2), ~0);
     delay(DELAY);
-    *led = 0;
+    gpio_masked_set(GPIO0, (1 << M0D_A_2), 0);
     delay(DELAY);
   }
   return 0;
