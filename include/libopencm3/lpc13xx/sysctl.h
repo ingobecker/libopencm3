@@ -89,14 +89,41 @@
 #define AHBCLK_UART         (1<<12)
 #define AHBCLK_ADC          (1<<13)
 #define AHBCLK_USB_REG      (1<<14)
-#define AHBCLK_USB_WDT      (1<<15)
-#define AHBCLK_USB_IOCON    (1<<16)
+#define AHBCLK_WDT          (1<<15)
+#define AHBCLK_IOCON        (1<<16)
 #define AHBCLK_SSP1         (1<<18)
 
+// PDRUNCFG and PDAWAKECFG
+#define IRCOUT_PD                   1
+#define IRC_PD                      (1<<1)
+#define FLASH_PD                    (1<<2)
+#define BOD_PD                      (1<<3)
+#define ADC_PD                      (1<<4)
+#define SYSOSC_PD                   (1<<5)
+#define WDTOSC_PD                   (1<<6)
+#define SYSPLL_PD                   (1<<7)
+#define USBPLL_PD                   (1<<8)
+#define USBPAD_PD                   (1<<10)
+#define FIXEDVAL_PD                 (0x1d<<11)
 
+// SYSOSCCTRL
+#define SYSOSC_BYPASS               1
+#define SYSOSC_FREQRANGE_LT_20MHZ   0
+#define SYSOSC_FREQRANGE_GT_20MHZ   (1<<1)
 
+// SYSPLLCTRL
+#define SYSPLL_PSEL_1               (0x0<<5)
+#define SYSPLL_PSEL_2               (0x1<<5)
+#define SYSPLL_PSEL_4               (0x2<<5)
+#define SYSPLL_PSEL_8               (0x3<<5)
 
+// SYSPLLCLKSEL
+#define SYSPLLCLK_IRC               0
+#define SYSPLLCLK_SYSOSC            1
 
-
-
+// MAINCLKSEL
+#define MAINCLK_IRC                 0
+#define MAINCLK_PLL_INPUT           1
+#define MAINCLK_WDTOSC              2
+#define MAINCLK_PLL_OUTPUT          3
 #endif
