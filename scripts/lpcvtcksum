@@ -41,7 +41,7 @@ for i in range(7):
 	sum += vectors[i]
 vectors[7] = 1 + (0xffffffff ^ (0xffffffff & sum))
 
-print "computed vector table checksum: 0x%08x" % vectors[7]
+print("computed vector table checksum: 0x%08x" % vectors[7])
 
 rawremainder = binfile.read()
 remainder = list(struct.unpack('B' * len(rawremainder), rawremainder))
@@ -51,7 +51,7 @@ numbytes = len(remainder) + 32
 # disable padding by passing "-no-padding" as the last argument
 if padding:
   if (numbytes % 4096):
-    print "padding for GoodFET compatibility"
+    print("padding for GoodFET compatibility")
     remainder.extend([0] * (4096 - numbytes % 4096))
 
 # rewrite file with checksum and padding

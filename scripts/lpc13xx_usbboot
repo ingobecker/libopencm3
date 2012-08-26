@@ -1,4 +1,4 @@
-#!/usr/bin/python2
+#!/usr/bin/python
 
 # This script flashes a firmware-image via the lpc13xx usb-bootloader
 # To successfully use it under linux you have to use this script.
@@ -37,7 +37,7 @@ def check(path):
 flashed = []
 
 if len(sys.argv) < 2:
-    print "Please specify a file to flash."
+    print("Please specify a file to flash.")
     exit(1)
 
 if len(sys.argv) < 3:
@@ -47,9 +47,9 @@ else:
 
 firmwarefile = sys.argv[1]
 
-print "Firmware to flash:", firmwarefile
-print "Searching for a mounted r0ket flash file system."
-print "Please connect a r0ket in ISP mode and mount it or have it mounted by your system."
+print("Firmware to flash:", firmwarefile)
+print("Searching for a mounted r0ket flash file system.")
+print("Please connect a r0ket in ISP mode and mount it or have it mounted by your system.")
 while True:
     mounts = getMounts()
 
@@ -67,15 +67,15 @@ while True:
     for device in unflashed:
         filename = check(mounts[device])
         if filename:
-            print "writing firmware to", filename
-            ff = open(filename, "r+")
-            firmware = open(firmwarefile)
+            print("writing firmware to", filename)
+            ff = open(filename, "rb+")
+            firmware = open(firmwarefile, 'rb')
             ff.write(firmware.read())
             ff.flush()
             os.fsync(ff.fileno())
             ff.close()
             firmware.close()
-            print 'done'
+            print('done')
             flashed.append(device)
             if not loop:
                 exit(0)
