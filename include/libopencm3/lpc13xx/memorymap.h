@@ -55,4 +55,7 @@
 #define GPIO_PIO3_BASE			(PERIPH_BASE_AHB + 0x30000)
 /* PERIPH_BASE_AHB + 0x40000 (0x5004 0000 - 0x501F FFFF): Reserved */
 
+/* NVIC */
+#define NVIC_BASE                       0xe000e000
+
 #endif
