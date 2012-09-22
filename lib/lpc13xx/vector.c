@@ -19,8 +19,9 @@
 
 #define WEAK __attribute__ ((weak))
 
+#include <libopencm3/cm3/common.h>
 /* Symbols exported by the linker script(s). */
-extern unsigned _etext, _data, _edata, _ebss, _stack;
+extern u32 _etext, _data, _edata, _ebss, _stack;
 
 void main(void);
 void reset_handler(void);
@@ -134,12 +135,15 @@ void (*const vector_table[]) (void) = {
 
 void reset_handler(void)
 {
-	volatile unsigned *src, *dest;
+	u32 *src, *dest;
+        /* set main stack pointer (MSP) to the end of ram (_stack) */
 	__asm__("MSR msp, %0" : : "r"(&_stack));
 
+        /* Copy initialized values to variables */
 	for (src = &_etext, dest = &_data; dest < &_edata; src++, dest++)
 		*dest = *src;
 
+        /* Write zero to zero-initialized variables */
 	while (dest < &_ebss)
 		*dest++ = 0;
 
