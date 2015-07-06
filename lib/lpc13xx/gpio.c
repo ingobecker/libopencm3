@@ -32,11 +32,18 @@ LGPL License Terms @ref lgpl_license
 /**@{*/
 
 #include <libopencm3/lpc13xx/gpio.h>
+/** @brief Set a Group of Pins
+
+Set one or more pins of the given GPIO port to 1
+
+@param[in] gpioport Unsigned int32. Port identifier @ref gpio_port_id
+@param[in] gpios Unsigned int16. Pin identifiers @ref gpio_pin_id
+           If multiple pins are to be changed, use logical OR '|' to separate
+           them.
+*/
 
 void gpio_set(uint32_t gpioport, uint16_t gpios)
 {
-	GPIO_DATA(gpioport) = gpios;
+	MMIO32((gpioport + (gpios << 2))) = gpios;
 }
-
 /**@}*/
-

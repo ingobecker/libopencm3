@@ -41,11 +41,17 @@ LGPL License Terms @ref lgpl_license
 
 /* --- Convenience macros -------------------------------------------------- */
 
+
+/** @defgroup gpio_port_id GPIO Port IDs
+@ingroup gpio_defines
+
+@{*/
 /* GPIO port base addresses (for convenience) */
 #define GPIO0				GPIO_PIO0_BASE
 #define GPIO1				GPIO_PIO1_BASE
 #define GPIO2				GPIO_PIO2_BASE
 #define GPIO3				GPIO_PIO3_BASE
+/**@}*/
 
 /* --- GPIO registers ------------------------------------------------------ */
 
