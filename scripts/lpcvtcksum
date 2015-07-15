@@ -34,7 +34,7 @@ for i in range(7):
 	sum += vectors[i]
 vectors[7] = 1 + (0xffffffff ^ (0xffffffff & sum))
 
-print "computed vector table checksum: 0x%08x" % vectors[7]
+print("computed vector table checksum: 0x%08x" % vectors[7])
 
 rawremainder = binfile.read()
 remainder = list(struct.unpack('B' * len(rawremainder), rawremainder))
